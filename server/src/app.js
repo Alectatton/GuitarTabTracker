@@ -11,7 +11,7 @@ app.use(cors())
 
 app.post('/register', (req, res) => {
     res.send({
-        message: "hello world!"
+        message: `Your user was registered: ${req.body.email}`
     })
 })
 
