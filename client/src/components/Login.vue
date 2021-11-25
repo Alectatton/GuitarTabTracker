@@ -6,7 +6,7 @@
                     <v-card elevation="15" shaped>
                         <v-card-text>
                             <div class="white elevation-2 pa-6 ma-10">
-                                <h1>Register</h1>
+                                <h1>Login</h1>
 
                                 <div class="pl-4 pr-4 pt-2 pb-2">
                                     <v-text-field 
@@ -22,12 +22,12 @@
                                     <div class="error" v-html="error" />
                                     <br>
                                     <v-btn
-                                        @click="register()"
+                                        @click="login()"
                                         color="accent"
                                         elevation="9"
                                         rounded
                                         outlined>
-                                        Register
+                                        Login
                                     </v-btn>
                                 </div>
                             </div>
@@ -51,9 +51,9 @@ export default {
         }
     },
     methods: {
-        async register() {
+        async login() {
             try{ 
-                await AuthenticationService.register({
+                await AuthenticationService.login({
                     email: this.email,
                     password: this.password
             })
