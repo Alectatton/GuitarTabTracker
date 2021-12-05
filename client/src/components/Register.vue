@@ -5,9 +5,7 @@
                 <v-col  cols="6">
                     <v-card elevation="15" shaped>
                         <v-card-text>
-                            <div class="white elevation-2 pa-6 ma-10">
-                                <h1>Register</h1>
-
+                            <panel title="Register">
                                 <div class="pl-4 pr-4 pt-2 pb-2">
                                     <form
                                         name="tab-tracker-form"
@@ -36,7 +34,7 @@
                                         Register
                                     </v-btn>
                                 </div>
-                            </div>
+                            </panel>
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -47,6 +45,7 @@
 
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
+import Panel from '@/components/Panel'
 
 export default {
     data() {
@@ -69,6 +68,9 @@ export default {
                 this.error = error.response.data.error
             }
         }
+    },
+    components: {
+        Panel
     }
 }
 </script>
