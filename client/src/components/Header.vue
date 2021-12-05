@@ -2,11 +2,14 @@
     <v-container>
         <v-app-bar fixed class="blue" dark> 
             <v-app-bar-title class="mr-4">
-                <span
+                <router-link
+                    tag="span"
                     class="home"
-                    @click="navigateTo({name: 'root'})">
-                Tab Tracker
-                </span>
+                    :to="{
+                        name: 'register'
+                    }">
+                    Tab Tracker
+                </router-link>
             </v-app-bar-title>
 
 
@@ -15,7 +18,9 @@
                     class="blue" 
                     text 
                     dark
-                    @click="navigateTo({name: 'songs'})">
+                    :to="{
+                        name: 'songs'
+                    }">
                     Browse
                 </v-btn>
             </v-toolbar-items>
@@ -28,7 +33,9 @@
                     class="blue" 
                     text 
                     dark
-                    @click="navigateTo({name: 'login'})">
+                    :to="{
+                        name: 'login'
+                    }">
                      Log in
                 </v-btn>
 
@@ -37,7 +44,9 @@
                     class="blue" 
                     text 
                     dark
-                    @click="navigateTo({name: 'register'})">
+                    :to="{
+                        name: 'register'
+                    }">
                      Sign Up
                 </v-btn>
 
@@ -59,14 +68,11 @@
 <script>
 export default {
     methods: {
-        navigateTo (route) {
-            this.$router.push(route)
-        },
         logout () {
             this.$store.dispatch('setToken', null)
             this.$store.dispatch('setUser', null)
             this.$router.push({
-                name: 'root'
+                name: 'songs'
             })
         }
     }

@@ -33,12 +33,12 @@
                             elevation="9"
                             rounded
                             outlined
-                            @click="navigateTo({
-                                name: 'song', 
+                            :to="{
+                                name: 'song',
                                 params: {
                                     songId: song.id
                                 }
-                            })">
+                            }"> 
                             View
                         </v-btn>
                     </v-flex>
@@ -53,25 +53,21 @@
 </template>
 
 <script>
-import Panel from '@/components/Panel'
 import SongsService from '@/services/SongsService'
 
 export default {
-    components: {
-        Panel
-    },
     data() {
         return {
             songs: null
         }
     },
-    methods: {
-        navigateTo (route) {
-            this.$router.push(route)
+    watch: {
+        '$route.query.search': {
+            immediate: true,
+            async handler (value) {
+                this.songs = (await SongsService.index(value)).data
+            }
         }
-    },
-    async mounted () {
-        this.songs = (await SongsService.index()).data
     }
 }
 </script>
