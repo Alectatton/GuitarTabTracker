@@ -4,23 +4,21 @@ const {Bookmark} = require('../models')
 module.exports = {
     async index (req, res) {
         try {
-            const {songId, userId} = req.query
-            const bookmark = await Bookmark.findOne({
+            const userId = req.query.userId
+            const bookmark = await Bookmark.findAll({
                 where: {
-                    SongId: songId,
                     UserId: userId
                 }
             })
             res.send(bookmark)
         } catch (err) {
             res.status(500).send({
-                error: 'An error has occured trying to fetch the bookmark'
+                error: 'An error has occured trying to fetch the bookmarks'
             })
         }
     },
     async post (req, res) {
         try {
-            console.log('posthere')
             const {songId, userId} = req.body
             const bookmark = await Bookmark.findOne({
                 where: {
@@ -33,8 +31,11 @@ module.exports = {
                     error: 'you already have this bookmarked'
                 })
             }
-            await Bookmark.create(bookmark)
-            res.send(bookmark)
+            const newBookmark = await Bookmark.create({
+                SongId: songId,
+                UserId: userId
+            })
+            res.send(newBookmark)
         } catch (err) {
             res.status(500).send({
                 error: 'An error has occured trying to create the bookmark'
@@ -43,9 +44,9 @@ module.exports = {
     },
     async delete (req, res) {
         try {
+            console.log('here')
             const {bookmarkId} = req.params
-            console.log(bookmarkId)
-            const bookmark = await Bookmark.findById(bookmark)
+            const bookmark = await Bookmark.findById(bookmarkId)
             await bookmark.destroy()
             res.send(bookmark)
         } catch (err) {

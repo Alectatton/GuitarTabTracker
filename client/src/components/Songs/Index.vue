@@ -1,6 +1,9 @@
 <template>
     <v-container>
         <v-flex>
+            <songs-bookmarks />
+        </v-flex>
+        <v-flex>
             <songs-search-panel />
             <songs-panel />     
         </v-flex>
@@ -11,11 +14,13 @@
 import SongsService from '@/services/SongsService'
 import SongsPanel from './SongsPanel.vue'
 import SongsSearchPanel from './SongsSearchPanel.vue'
+import SongsBookmarks from './SongsBookmarks.vue'
 
 export default {
     components: {
         SongsPanel,
-        SongsSearchPanel
+        SongsSearchPanel,
+        SongsBookmarks,
     },
     data() {
         return {

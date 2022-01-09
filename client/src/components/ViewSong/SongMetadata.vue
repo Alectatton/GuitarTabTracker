@@ -30,23 +30,23 @@
                 </v-btn>
 
                 <v-btn
-                    v-if="isUserLoggedIn && !isBookmarked"
+                    v-if="isUserLoggedIn && !bookmark"
                     color="accent"
                     elevation="9"
                     rounded
                     outlined
-                    @click="bookmark">
-                    Bookmark
+                    @click="setBookmark">
+                    Bookmark Song
                 </v-btn>
 
                 <v-btn
-                    v-if="isUserLoggedIn  && isBookmarked"
+                    v-if="isUserLoggedIn && bookmark"
                     color="accent"
                     elevation="9"
                     rounded
                     outlined
-                    @click="unbookmark">
-                    Unbookmark
+                    @click="unsetBookmark">
+                    Remove Bookmark
                 </v-btn>
 
             </v-flex>
@@ -70,7 +70,7 @@ export default {
     ],
     data () {
         return {
-            isBookmarked: false
+            bookmark: null
         }
     },
     computed: {
@@ -78,40 +78,38 @@ export default {
             'isUserLoggedIn'
         ])
     },
-    
     async mounted () {
         if (!this.isUserLoggedIn) {
             return
         }
-
+        // {{ TODO }}
+        // .index takes just user id and finds all, maybe new route for userId and songId to find just one?
         try {
-            const bookmark = (await BookmarksService.index({
+            this.bookmark = (await BookmarksService.index({
                 songId: this.$store.state.route.params.songId,
                 userId: this.$store.state.user.id
             })).data
-            
-            this.isBookmarked = !!bookmark
         } catch (e) {
             console.log(e)
         }
     },
     methods: {
-        async bookmark () {
+        async setBookmark () {
             try {
-                await BookmarksService.post({
+                this.bookmark = (await BookmarksService.post({
                     songId: this.$store.state.route.params.songId,
                     userId: this.$store.state.user.id
-                }) 
+                })).data 
             } catch (e) {
                 console.log(e)
             }
         },
-        async unbookmark () {
+        async unsetBookmark () {
             try {
-                await BookmarksService.delete({
-                    songId: this.$store.state.route.params.songId,
-                    userId: this.$store.state.user.id
-                }) 
+                console.log('Bookmark', this.bookmark)
+                console.log('bookmark id ', this.bookmark.id)
+                await BookmarksService.delete(this.bookmark.id)
+                this.bookmark = null
             } catch (e) {
                 console.log(e)
             }
