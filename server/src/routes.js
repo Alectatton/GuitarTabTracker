@@ -22,9 +22,10 @@ module.exports = (app) => {
 
     app.get('/bookmarks',
         BookmarksController.index)
-    //app.get('/bookmarks/:bookmarkId')
+    app.get('/bookmark',
+        BookmarksController.retrieve)
     app.post('/bookmarks',
         BookmarksController.post)
-    app.delete('/bookmarks/:bookmarkId',
+    app.delete('/bookmark/:bookmarkId',
         BookmarksController.delete)
 }

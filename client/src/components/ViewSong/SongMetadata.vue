@@ -82,10 +82,8 @@ export default {
         if (!this.isUserLoggedIn) {
             return
         }
-        // {{ TODO }}
-        // .index takes just user id and finds all, maybe new route for userId and songId to find just one?
         try {
-            this.bookmark = (await BookmarksService.index({
+            this.bookmark = (await BookmarksService.retrieve({
                 songId: this.$store.state.route.params.songId,
                 userId: this.$store.state.user.id
             })).data
@@ -106,8 +104,6 @@ export default {
         },
         async unsetBookmark () {
             try {
-                console.log('Bookmark', this.bookmark)
-                console.log('bookmark id ', this.bookmark.id)
                 await BookmarksService.delete(this.bookmark.id)
                 this.bookmark = null
             } catch (e) {

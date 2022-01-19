@@ -6,12 +6,17 @@ export default {
             params: bookmark
         })
     },
+    retrieve (bookmark) {
+        return Api().get('bookmark', {
+            params: bookmark
+        })
+    },
     post (bookmark) {
         return Api().post('bookmarks', bookmark)
     },
     delete (bookmarkId) {
         console.log('delete')
         console.log(bookmarkId)
-        return Api().get(`bookmarks/${bookmarkId}`)
+        return Api().delete(`bookmark/${bookmarkId}`)
     }
 }

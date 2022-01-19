@@ -1,10 +1,10 @@
 <template>
     <panel title="Video">
-        <youtube
+        <!-- <youtube
             :video-id="youtubeId"
             :player-width="400"
-            :player-height="250">
-        </youtube>
+            :player-height="250"> 
+        </youtube> -->
     </panel>
 </template>
 
