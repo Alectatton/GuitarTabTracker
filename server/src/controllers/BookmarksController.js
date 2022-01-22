@@ -1,24 +1,13 @@
 const {Bookmark} = require('../models')
-//const _ = require('lodash')
-//const {Op} = require('sequelize')
 
 module.exports = {
     async index (req, res) {
         try {
-            const userId = req.query.userId
+            const userId = req.user.id
             const bookmark = await Bookmark.findAll({
                 where: {
                     UserId: userId
                 }})
-              /*   include: [
-                    {
-                        model: Song
-                    }
-                ]
-            }).map(bookmark => bookmark.toJSON())
-                .map(bookmark => _.extend({
-                    bookmarkId: bookmark.id
-                }, bookmark.Song)) */
             res.send(bookmark)
         } catch (err) {
             res.status(500).send({
@@ -28,7 +17,7 @@ module.exports = {
     },
     async retrieve (req, res) {
         try {
-            const userId = req.query.userId
+            const userId = req.user.id
             const songId = req.query.songId
             const bookmark = await Bookmark.findOne({
                 where: {
@@ -70,10 +59,12 @@ module.exports = {
     },
     async delete (req, res) {
         try {
+            const userId = req.user.id
             const bookmarkId = req.params.bookmarkId
             const bookmark = await Bookmark.findOne({
                 where: {
                     id: bookmarkId,
+                    UserId: userId,
                 }
             })
             await bookmark.destroy()
