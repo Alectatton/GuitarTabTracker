@@ -1,3 +1,3 @@
 # tab-tracker
-Vue.js/express.js app to practice full stack development
+Vue and Node full-stack web app to manage guitar tabs.
 
